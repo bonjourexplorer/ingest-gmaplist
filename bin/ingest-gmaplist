@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+/* eslint-disable no-sync */
+// eslint-disable-next-line max-params
+(function main(PACKAGE, PROCESS, HOME_DIR, commander, FS, parse_files) {
+    commander
+        .version(PACKAGE.version, '-v, --version')
+        .usage('files')
+        .parse(PROCESS.argv)
+        .name(PACKAGE.name)
+        ; // eslint-disable-line indent
+    if (commander.args.length > 0) {
+        return parse_files(load_files(commander.args));
+    }
+    let file_i = 0;
+    let default_file_name = 'f';
+    let full_file_name;
+    const default_file_name_list = [];
+    // eslint-disable-next-line no-console
+    console.log(`Looking for f*.txt files in ${ HOME_DIR }/Downloads`);
+    // eslint-disable-next-line max-len
+    while (FS.existsSync(full_file_name = `${ HOME_DIR }/Downloads/${ default_file_name }.txt`)) {
+        default_file_name_list.push(full_file_name);
+        default_file_name = `f (${ ++file_i })`;
+    }
+    return parse_files(load_files(default_file_name_list));
+
+    // -----------
+
+    function load_files(file_name_list) {
+        let files = [];
+        for (const file_name of file_name_list) {
+            try {
+                // eslint-disable-next-line no-sync
+                const file_contents = FS.readFileSync(file_name, 'utf8');
+                files = files.concat(file_contents);
+            } catch (exception) {
+                // eslint-disable-next-line no-console
+                console.log(`${ file_name } does not exist`);
+            }
+        }
+        return files;
+    }
+}(
+    require('../package.json'),
+    require('process'),
+    require('os').homedir(),
+    require('commander'),
+    require('fs'),
+    require('../source/index.js'),
+));
