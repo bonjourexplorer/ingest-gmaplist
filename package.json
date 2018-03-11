@@ -1,15 +1,16 @@
 {
     "name": "ingest-gmaplist",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "CLI program to ingest Google Maps Lists",
     "author": "Derek Dunagan (https://github.com/rhombal)",
     "license": "MIT",
-    "main": "target/npm/index.js",
+    "main": "target/cli/index.js",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/rhombal/uri-query.git"
+        "url": "git+https://github.com/rhombal/ingest-gmaplist.git"
     },
     "dependencies": {
+        "chalk": "^2.3.2",
         "commander": "^2.14.1"
     },
     "devDependencies": {
@@ -24,11 +25,10 @@
         "test": "eslint ./source && mocha ./source/index.test.js",
         "prestart": "npm install --silent",
         "startXXX": "mocha --inspect-brk --watch ./source/index.test.js",
-        "start": "node --inspect-brk ./bin/ingest-gmaplist ./source/paris.1.me.txt",
-        "build": "npm run --silent build-npm",
-        "prebuild-npm": "npm install --silent && npm test --silent",
-        "build-npm": "rimraf ./target/npm; babel ./source --out-dir ./target/npm",
-        "publish-npm": "git push origin && np",
+        "start": "node --inspect-brk ./bin/ingest-gmaplist",
+        "build": "npm run --silent build-cli",
+        "prebuild-cli": "npm install --silent && npm test --silent",
+        "build-cli": "rimraf ./target/npm; babel ./source --out-dir ./target/cli",
         "rinse": "rimraf ./target ./.tmp ./tmp ./**/.tmp ./**/tmp ./npm-debug.log* ./**/npm-debug.log*",
         "scrub": "npm run --silent rinse; rimraf ./node_modules"
     }
