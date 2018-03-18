@@ -29,7 +29,7 @@
         "start": "node --inspect-brk ./bin/parse-gmaplist",
         "build": "npm run --silent build-cli",
         "prebuild-cli": "npm install --silent && npm test --silent",
-        "build-cli": "rimraf ./target/npm; babel ./source --out-dir ./target/cli",
+        "build-cli": "rimraf ./target/npm; babel ./source --out-dir ./target/node",
         "rinse": "rimraf ./target ./.tmp ./tmp ./**/.tmp ./**/tmp ./npm-debug.log* ./**/npm-debug.log*",
         "scrub": "npm run --silent rinse; rimraf ./node_modules"
     }
