@@ -12,6 +12,8 @@
     const PLACE_COORDS_LAT = [ 9, 2 ];
     const PLACE_COORDS_LONG = [ 9, 3 ];
     const PLACE_USER_BLURB = [ 25, 15, 0, 2 ];
+    const PLACE_GOOGLE_BLURB = [ 32, 0, 1 ];
+    const PLACE_GOOGLE_DESC = [ 32, 1, 1 ];
 
     return module.exports = parse_files_for_places;
 
@@ -62,6 +64,8 @@
                     get_value(raw_place, PLACE_COORDS_LONG),
                     ], // eslint-disable-line indent
                 user_blurb: get_value(raw_place, PLACE_USER_BLURB),
+                google_blurb: get_value(raw_place, PLACE_GOOGLE_BLURB),
+                google_description: get_value(raw_place, PLACE_GOOGLE_DESC),
                 }; // eslint-disable-line indent
             const google_maps_q = encodeURIComponent(
                 `${ place.title }, ${ place.address.join(', ') }`,
