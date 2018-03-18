@@ -19,7 +19,8 @@
 
     // -----------
 
-    function parse_files_for_places(file_list) {
+    function parse_files_for_places(raw_file_list) {
+        const file_list = build_file_list(raw_file_list);
         let places = [];
         for (const file_name of file_list) {
             const file_contents = FS.readFileSync(file_name, 'utf8');
@@ -49,7 +50,6 @@
         // -----------
 
         function compose_place(raw_place) {
-            // debugger;
             const place = {
                 google_place_id: get_value(raw_place, PLACE_ID),
                 title: get_value(raw_place, PLACE_TITLE),
@@ -91,6 +91,36 @@
             }
             return '' === value ? null : value;
         }
+    }
+
+    // -----------
+
+    function build_file_list(raw_file_list) {
+        if (raw_file_list) {
+            return build_safe_file_list(raw_file_list);
+        }
+        const HOME_DIR = require('os').homedir();
+        let file_i = 0;
+        let file_name = 'f';
+        let full_file_path;
+        const default_file_list = [];
+        // eslint-disable-next-line max-len
+        while (FS.existsSync(
+            full_file_path = `${ HOME_DIR }/Downloads/${ file_name }.txt`,
+            )) { // eslint-disable-line indent
+            default_file_list.push(full_file_path);
+            file_name = `f (${ ++file_i })`;
+        }
+        return default_file_list;
+    }
+
+    function build_safe_file_list(raw_file_list) {
+        const safe_file_list = [];
+        for (let i = 0, n = raw_file_list.length - 1; i <= n; i++) {
+            const raw_file = raw_file_list[i];
+            FS.existsSync(raw_file) && safe_file_list.push(raw_file);
+        }
+        return safe_file_list;
     }
 }(
     require('fs'),

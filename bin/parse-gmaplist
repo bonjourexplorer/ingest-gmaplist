@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-sync */
 // eslint-disable-next-line max-params
-(function main(PACKAGE, PROCESS, HOME_DIR, FS, COMMAND, CHALK, extract_places) {
+(function main(PACKAGE, PROCESS, FS, COMMAND, CHALK, extract_places) {
     COMMAND
         .version(PACKAGE.version, '-v, --version')
         .usage('files')
@@ -10,30 +10,31 @@
         ; // eslint-disable-line indent
     write_to_stderr('');
     if (COMMAND.args.length > 0) {
-        return parse_files(COMMAND.args);
+        parse_files(COMMAND.args);
+    } else {
+        const HOME_DIR = require('os').homedir();
+        let file_i = 0;
+        let file_name = 'f';
+        let full_file_path;
+        const default_file_list = [];
+        write_info_to_stderr(`🔍  Looking in ${ HOME_DIR }/Downloads for files named f*.txt`); // eslint-disable-line max-len
+        while (FS.existsSync(
+            full_file_path = `${ HOME_DIR }/Downloads/${ file_name }.txt`,
+            )) { // eslint-disable-line indent
+            default_file_list.push(full_file_path);
+            file_name = `f (${ ++file_i })`;
+        }
+        0 === default_file_list.length
+            ? write_warning_to_stderr(`🤷‍  Could not find any files named f*.txt in ${ HOME_DIR }/Downloads`) // eslint-disable-line max-len
+            : write_to_stdout(parse_files(default_file_list))
+            ; // eslint-disable-line indent
     }
-    let file_i = 0;
-    let default_file_name = 'f';
-    let full_file_path;
-    const default_file_list = [];
-    write_info_to_stderr(`🔍  Looking in ${ HOME_DIR }/Downloads for files named f*.txt`); // eslint-disable-line max-len
-    // eslint-disable-next-line max-len
-    while (FS.existsSync(full_file_path = `${ HOME_DIR }/Downloads/${ default_file_name }.txt`)) {
-        default_file_list.push(full_file_path);
-        default_file_name = `f (${ ++file_i })`;
-    }
-    if (0 === default_file_list.length) {
-        // eslint-disable-next-line max-len
-        write_warning_to_stderr(`🤷‍  Could not find any files named f*.txt in ${ HOME_DIR }/Downloads`); // eslint-disable-line indent
-        return null;
-    }
-    return parse_files(default_file_list);
 
     // -----------
 
     function parse_files(raw_file_list) {
         try {
-            const safe_file_list = build_file_list(raw_file_list);
+            const safe_file_list = build_safe_file_list(raw_file_list);
             if (0 === safe_file_list.length) {
                 write_warning_to_stderr('🤷‍  There are no files to parse');
                 return 'null';
@@ -42,10 +43,10 @@
             if (Array.isArray(places)) {
                 if (0 === places.length) {
                     write_warning_to_stderr('🤷‍  No places were in the files');
+                    return '[]';
                 }
-                write_to_stdout(JSON.stringify(places));
                 write_success_to_stderr('🏁  Successfully parsed files');
-                return places;
+                return JSON.stringify(places);
             }
         } catch (exception) {
             // do nothing
@@ -55,15 +56,14 @@
 
         // -----------
 
-        function build_file_list(file_list) {
+        function build_safe_file_list(file_list) {
             const safe_file_list = [];
             for (let i = 0, n = file_list.length - 1; i <= n; i++) {
                 const raw_file = file_list[i];
-                if (FS.existsSync(raw_file)) {
-                    safe_file_list.push(raw_file);
-                } else {
-                    write_warning_to_stderr(`⚠️  Ignoring ${ raw_file } because it is not a file.`); // eslint-disable-line max-len
-                }
+                FS.existsSync(raw_file)
+                    ? safe_file_list.push(raw_file)
+                    : write_warning_to_stderr(`⚠️  Ignoring ${ raw_file } because it is not a file.`) // eslint-disable-line max-len
+                    ; // eslint-disable-line indent
             }
             return safe_file_list;
         }
@@ -92,7 +92,6 @@
 }(
     require('../package.json'),
     require('process'),
-    require('os').homedir(),
     require('fs'),
     require('commander'),
     require('chalk'),
