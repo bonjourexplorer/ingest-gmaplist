@@ -62,7 +62,7 @@
                 if (FS.existsSync(raw_file)) {
                     safe_file_list.push(raw_file);
                 } else {
-                    write_warning_to_stderr(`⚠️  ${ raw_file } is not a file. Ignoring.`); // eslint-disable-line max-len
+                    write_warning_to_stderr(`⚠️  Ignoring ${ raw_file } because it is not a file.`); // eslint-disable-line max-len
                 }
             }
             return safe_file_list;
