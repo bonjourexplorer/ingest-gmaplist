@@ -1,2 +1,2 @@
-# ingest-gmaplist
-CLI program to ingest Google Maps Lists
+# parse-gmaplist
+CLI program to parse Google Maps Lists

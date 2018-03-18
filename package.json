@@ -1,13 +1,13 @@
 {
-    "name": "ingest-gmaplist",
+    "name": "parse-gmaplist",
     "version": "1.0.0",
-    "description": "CLI program to ingest Google Maps Lists",
+    "description": "CLI program to parse Google Maps Lists",
     "author": "Derek Dunagan (https://github.com/rhombal)",
     "license": "MIT",
     "main": "target/cli/index.js",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/rhombal/ingest-gmaplist.git"
+        "url": "git+https://github.com/rhombal/parse-gmaplist.git"
     },
     "dependencies": {
         "chalk": "^2.3.2",
@@ -25,7 +25,7 @@
         "test": "eslint ./source && mocha ./source/index.test.js",
         "prestart": "npm install --silent",
         "startXXX": "mocha --inspect-brk --watch ./source/index.test.js",
-        "start": "node --inspect-brk ./bin/ingest-gmaplist",
+        "start": "node --inspect-brk ./bin/parse-gmaplist",
         "build": "npm run --silent build-cli",
         "prebuild-cli": "npm install --silent && npm test --silent",
         "build-cli": "rimraf ./target/npm; babel ./source --out-dir ./target/cli",
