@@ -4,7 +4,7 @@
     "description": "CLI program to parse Google Maps Lists",
     "author": "Derek Dunagan (https://github.com/rhombal)",
     "license": "MIT",
-    "main": "target/cli/index.js",
+    "main": "source/index.js",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/rhombal/parse-gmaplist.git"
