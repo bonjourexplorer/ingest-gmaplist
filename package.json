@@ -1,6 +1,6 @@
 {
     "name": "parse-gmaplist",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "CLI program to parse Google Maps Lists",
     "author": "Derek Dunagan (https://github.com/d11n)",
     "license": "MIT",
@@ -10,15 +10,15 @@
         "url": "https://github.com/bonjourexplorer/parse-gmaplist.git"
     },
     "dependencies": {
-        "chalk": "^2.4.0",
+        "chalk": "^2.4.1",
         "commander": "^2.15.1"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
-        "babel-preset-env": "^1.6.1",
+        "babel-preset-env": "^1.7.0",
         "babel-preset-stage-3": "^6.24.1",
         "eslint": "^4.19.1",
-        "mocha": "^5.1.0",
+        "mocha": "^5.2.0",
         "np": "^2.20.1",
         "rimraf": "^2.6.2"
     },
