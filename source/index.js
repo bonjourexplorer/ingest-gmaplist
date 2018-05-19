@@ -11,7 +11,8 @@
     const PLACE_WEBSITE_TITLE = [ 7, 1 ];
     const PLACE_COORDS_LAT = [ 9, 2 ];
     const PLACE_COORDS_LONG = [ 9, 3 ];
-    const PLACE_USER_BLURB = [ 25, 15, 0, 2 ];
+    const PLACE_USER_BLURB_A = [ 25, 15, 0, 2 ];
+    const PLACE_USER_BLURB_B = [ 25, 15, 1, 2 ];
     const PLACE_GOOGLE_BLURB = [ 32, 0, 1 ];
     const PLACE_GOOGLE_DESC = [ 32, 1, 1 ];
 
@@ -63,7 +64,9 @@
                     get_value(raw_place, PLACE_COORDS_LAT),
                     get_value(raw_place, PLACE_COORDS_LONG),
                     ], // eslint-disable-line indent
-                user_blurb: get_value(raw_place, PLACE_USER_BLURB),
+                user_blurb: get_value(raw_place, PLACE_USER_BLURB_A)
+                    || get_value(raw_place, PLACE_USER_BLURB_B)
+                    , // eslint-disable-line
                 google_blurb: get_value(raw_place, PLACE_GOOGLE_BLURB),
                 google_description: get_value(raw_place, PLACE_GOOGLE_DESC),
                 }; // eslint-disable-line indent

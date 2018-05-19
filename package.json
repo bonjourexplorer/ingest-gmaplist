@@ -1,6 +1,6 @@
 {
     "name": "parse-gmaplist",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "CLI program to parse Google Maps Lists",
     "author": "Derek Dunagan (https://github.com/d11n)",
     "license": "MIT",
