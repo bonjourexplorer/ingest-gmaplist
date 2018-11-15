@@ -11,15 +11,15 @@
     },
     "dependencies": {
         "chalk": "^2.4.1",
-        "commander": "^2.15.1"
+        "commander": "^2.19.0"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
         "babel-preset-env": "^1.7.0",
         "babel-preset-stage-3": "^6.24.1",
-        "eslint": "^4.19.1",
+        "eslint": "^5.9.0",
         "mocha": "^5.2.0",
-        "np": "^2.20.1",
+        "np": "^3.0.4",
         "rimraf": "^2.6.2"
     },
     "scripts": {
